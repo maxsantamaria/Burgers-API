@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Maximiliano Santamaria",
@@ -13,5 +14,8 @@
     "koa-body": "^4.1.1",
     "koa-mount": "^4.0.0",
     "koa-router": "^8.0.8"
+  },
+  "engines": {
+    "node": "10.16.0"
   }
 }
