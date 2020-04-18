@@ -1,0 +1,17 @@
+{
+  "name": "tallerdeintegracion-tarea2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maximiliano Santamaria",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
+    "koa-mount": "^4.0.0",
+    "koa-router": "^8.0.8"
+  }
+}
