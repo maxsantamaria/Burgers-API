@@ -5,21 +5,9 @@ const URL = require('../globals')
 
 const app = new Koa();
 
-const ingredientes = [
-  {
-    id: 0,
-    nombre: 'Queso Cheddar',
-    descripcion: 'Cheddar de la mejor calidad',
-  },
-  {
-    id: 1,
-    nombre: 'Queso americano',
-    descripcion: 'Muy bueno',
-  }
-];
+const ingredientes = [];
 
 router.get('/ingrediente', async (ctx, next) => {
-  console.log('GET Ingredientes')
   ctx.body = ingredientes;
   ctx.response.status = 200
   await next();
@@ -49,8 +37,8 @@ router.get('/ingrediente/:id', async (ctx, next) => {
 
 
 router.post('/ingrediente', bodyParser(), async (ctx, next) => {
-  if(!ctx.request.body.nombre || 
-     !ctx.request.body.descripcion) {
+  if(!ctx.request.body.nombre || typeof ctx.request.body.nombre != 'string' || 
+     !ctx.request.body.descripcion || typeof ctx.request.body.descripcion != 'string') {
     ctx.response.status = 400
     ctx.body = {message: 'Wrong input'}
   } else {
@@ -63,7 +51,7 @@ router.post('/ingrediente', bodyParser(), async (ctx, next) => {
       nombre: ctx.request.body.nombre,
       descripcion: ctx.request.body.descripcion,
     })
-    ctx.body = ingredientes[newId]
+    ctx.body = ingredientes[ingredientes.length - 1]
     ctx.response.status = 200
   }
   

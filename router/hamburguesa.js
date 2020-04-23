@@ -5,37 +5,11 @@ const URL = require('../globals')
 
 const app = new Koa();
 
-const hamburguesas = [
-  {
-    id: 1,
-    nombre: 'Cangreburger',
-    precio: 5000,
-    descripcion: 'muy buena',
-    imagen: null,
-    ingredientes: [
-      {
-        path: 'http://localhost/3000/ingrediente/1'
-      }
-    ]
-  },
-  {
-    id: 2,
-    nombre: 'Cangreburger',
-    precio: 5000,
-    descripcion: 'muy buena',
-    imagen: null,
-    ingredientes: [
-      {
-        path: 'http://localhost/3000/ingrediente/1'
-      }
-    ]
-  }
-];
+const hamburguesas = [];
 
 const ingredientes = require('./ingrediente').ingredientes
 
 router.get('/hamburguesa', async (ctx, next) => {
-  console.log('hola')
   ctx.body = hamburguesas;
   ctx.response.status = 200
   await next();
@@ -65,11 +39,11 @@ router.get('/hamburguesa/:id', async (ctx, next) => {
 
 
 router.post('/hamburguesa', bodyParser(), async (ctx, next) => {
-  if(!ctx.request.body.nombre ||
-     !ctx.request.body.precio ||
+  if(!ctx.request.body.nombre || typeof ctx.request.body.nombre != 'string' ||
+     !ctx.request.body.precio || 
      ctx.request.body.precio != parseInt(ctx.request.body.precio) ||
-     !ctx.request.body.descripcion ||
-     !ctx.request.body.imagen) {
+     !ctx.request.body.descripcion || typeof ctx.request.body.descripcion != 'string' ||
+     !ctx.request.body.imagen || typeof ctx.request.body.imagen != 'string') {
     ctx.response.status = 400
     ctx.body = {message: 'Wrong input'}
   } else {
@@ -92,7 +66,6 @@ router.post('/hamburguesa', bodyParser(), async (ctx, next) => {
 })
 
 router.delete('/hamburguesa/:id', async(ctx, next) => {
-  console.log('entro', ctx.params.id)
   var removeIndex = hamburguesas.map((hamburguesa) => {
     return hamburguesa.id
   }).indexOf(parseInt(ctx.params.id))
@@ -147,7 +120,6 @@ router.delete('/hamburguesa/:id_hamburguesa/ingrediente/:id_ingrediente',
     } else {
       var ingredienteIndex = hamburguesas[deleteIndex].ingredientes.map((ingrediente) => {
         var n = ingrediente.path.lastIndexOf('/')
-        console.log(ingrediente.path.slice(n + 1))
         return ingrediente.path.slice(n + 1)
       }).indexOf(ctx.params.id_ingrediente)
 
@@ -164,11 +136,11 @@ router.delete('/hamburguesa/:id_hamburguesa/ingrediente/:id_ingrediente',
 )
 
 router.patch('/hamburguesa/:id', bodyParser(), async (ctx, next) => {
-  if(!ctx.request.body.nombre ||
+  if(!ctx.request.body.nombre || typeof ctx.request.body.nombre != 'string' ||
      !ctx.request.body.precio ||
      ctx.request.body.precio != parseInt(ctx.request.body.precio) ||
-     !ctx.request.body.descripcion ||
-     !ctx.request.body.imagen) {
+     !ctx.request.body.descripcion || typeof ctx.request.body.descripcion != 'string' ||
+     !ctx.request.body.imagen || typeof ctx.request.body.imagen != 'string') {
     ctx.response.status = 400
     ctx.body = {message: 'Parametros invalidos'}
   } else {
@@ -194,7 +166,6 @@ router.patch('/hamburguesa/:id', bodyParser(), async (ctx, next) => {
 })
 
 router.delete('/ingrediente/:id', async(ctx, next) => {
-  console.log('entro', ctx.params.id)
   var removeIndex = ingredientes.map((ingrediente) => {
     return ingrediente.id
   }).indexOf(parseInt(ctx.params.id))

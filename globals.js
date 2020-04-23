@@ -1,3 +1,3 @@
-const URL = 'http://localhost:3000'
+const URL = 'https://morning-sierra-65213.herokuapp.com'
 
 module.exports = URL
