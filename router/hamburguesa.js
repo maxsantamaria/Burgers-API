@@ -98,9 +98,17 @@ router.put('/hamburguesa/:id_hamburguesa/ingrediente/:id_ingrediente',
         ctx.body = {message: 'Ingrediente inexistente'}
         ctx.response.status = 404
       } else {
-        hamburguesas[editIndex].ingredientes.push({
-          'path': URL + '/ingrediente/' + ctx.params.id_ingrediente
-        })
+        console.log(hamburguesas[editIndex].ingredientes)
+        console.log(hamburguesas[editIndex].ingredientes.includes({
+          path: URL + '/ingrediente/' + ctx.params.id_ingrediente
+        }))
+        if (!hamburguesas[editIndex].ingredientes.some(e => 
+          e.path == URL + '/ingrediente/' + ctx.params.id_ingrediente)
+        ) {
+          hamburguesas[editIndex].ingredientes.push({
+            'path': URL + '/ingrediente/' + ctx.params.id_ingrediente
+          })
+        }
         ctx.body = {message: 'Ingrediente agregado'}
         ctx.response.status = 200
       }
