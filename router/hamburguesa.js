@@ -60,7 +60,7 @@ router.post('/hamburguesa', bodyParser(), async (ctx, next) => {
       ingredientes: []
     })
     ctx.body = hamburguesas[hamburguesas.length - 1]
-    ctx.response.status = 200
+    ctx.response.status = 201
   }
   
 })
@@ -110,7 +110,7 @@ router.put('/hamburguesa/:id_hamburguesa/ingrediente/:id_ingrediente',
           })
         }
         ctx.body = {message: 'Ingrediente agregado'}
-        ctx.response.status = 200
+        ctx.response.status = 201
       }
     }
   }

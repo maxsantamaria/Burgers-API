@@ -52,7 +52,7 @@ router.post('/ingrediente', bodyParser(), async (ctx, next) => {
       descripcion: ctx.request.body.descripcion,
     })
     ctx.body = ingredientes[ingredientes.length - 1]
-    ctx.response.status = 200
+    ctx.response.status = 201
   }
   
 })
